@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  web:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: web
+      volumes:
+        - ../:/shared
+        - vcpkg:/home/user/vcpkg
+      ports:
+        - "80:80"
+        - "8080:8080"
+
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - mongodb-data:/data/db
+
+volumes:
+  mongodb-data:
+  vcpkg:
